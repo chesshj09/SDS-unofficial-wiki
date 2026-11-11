@@ -262,7 +262,7 @@ const sig=g=>JSON.stringify([g.love,g.like,g.neutral,g.dislike,g.hate]);
 function giftBlock(n){
  const gs=n.gifts;if(!gs||!gs.length)return '<p class="empty">선물 선호도 정보가 없어요.</p>';
  if(gs.length===1)return giftLv(gs[0]);
- if(gs.every(g=>sig(g)===sig(gs[0])))return '<p class="muted sm">하트 구간에 따른 차이는 없어요.</p>'+giftLv(gs[0]);
+ if(gs.every(g=>sig(g)===sig(gs[0])))return giftLv(gs[0]);
  const i=Math.min(st.gi,gs.length-1);
  return `<div class="chips">${gs.map((x,j)=>`<button class="chip" aria-pressed="${j===i}" data-gi="${j}">${esc(x.label||'기본')}</button>`).join('')}</div><p class="muted sm">호감도에 따라 선호도가 바뀌는 주민이에요.</p>`+giftLv(gs[i]);
 }
