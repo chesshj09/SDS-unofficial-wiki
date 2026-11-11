@@ -181,7 +181,7 @@ const pinIdx=k=>{const i=PIN.indexOf(k);return i<0?999:i};
 const NPCS=[...G.npcs].sort((a,b)=>pinIdx(a.key)-pinIdx(b.key)||a.ko.localeCompare(b.ko,'ko'));
 const FAM={Lane:'Rane',Rane:'Lane',Sariel:'Eril',Eril:'Sariel'};
 const FAMROLE={Sariel:'아내',Eril:'남편'};     // 가족 표기 뒤 괄호
-const ROM={Sariel:'불가능',Eril:'불가능'};          // 부부라서 결혼 불가능
+const ROM={Sariel:'가능 → 불가능',Eril:'불가능'};          // 부부라서 결혼 불가능
 const YEAR2=['Lane','Rane'];                    // 1년차 결혼 불가, 2년차부터 가능
 const josa=(w,a,b)=>{const c=w.charCodeAt(w.length-1);return c>=0xAC00&&c<=0xD7A3?((c-0xAC00)%28?a:b):b};
 
