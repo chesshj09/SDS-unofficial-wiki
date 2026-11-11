@@ -306,7 +306,8 @@ function npcPage(n){
   }else b+=sec(x.t||'(제목 없음)',wk(x.b||''));
  });
  if(st.edit)b+=`<p><button class="btn" data-addsec="1">＋ 섹션 추가</button></p>`;
- const lead=n.farmer?`<p><b>${esc(n.ko)}</b>${josa(n.ko,'은','는')} 농장주다. 생일은 ${SEA[s]} ${d}일이고, 남편은 <a href="#/npc/${FAM[k]}">${esc(NPC[FAM[k]].ko)}</a>이다.</p>`:`<p><b>${esc(n.ko)}</b>${josa(n.ko,'은','는')} Seven Deadly Sins(SDS) 모드의 주민이다. 생일은 ${SEA[s]} ${d}일이고${ROM[k]?', 연애할 수 없다':YEAR2.includes(k)?', 1년차에는 결혼할 수 없고 2년차부터 결혼할 수 있다':n.romance?', 결혼할 수 있다':', 결혼 대상은 아니다'}.</p>`;
+ const sp=FAM[k]?`<a href="#/npc/${FAM[k]}">${esc(NPC[FAM[k]].ko)}</a>${josa(NPC[FAM[k]].ko,'과','와')}`:'';
+ const lead=n.farmer?`<p><b>${esc(n.ko)}</b>${josa(n.ko,'은','는')} 에버문 농장의 농장주로, ${sp} 결혼했다. 생일은 ${SEA[s]} ${d}일이다.</p>`:ROM[k]?`<p><b>${esc(n.ko)}</b>${josa(n.ko,'은','는')} Seven Deadly Sins(SDS) 모드의 주민으로, ${sp} 결혼했다. 생일은 ${SEA[s]} ${d}일이다.</p>`:`<p><b>${esc(n.ko)}</b>${josa(n.ko,'은','는')} Seven Deadly Sins(SDS) 모드의 주민이다. 생일은 ${SEA[s]} ${d}일이고${YEAR2.includes(k)?', 1년차에는 결혼할 수 없고 2년차부터 결혼할 수 있다':n.romance?', 결혼할 수 있다':', 결혼 대상은 아니다'}.</p>`;
  const toc=`<div class="toc"><b>목차</b><ol>${secs.map(([i,t])=>`<li><a data-go="s${i}">${esc(t)}</a></li>`).join('')}</ol></div>`;
  return infobox(n)+`<h1>${esc(n.ko)}</h1>${lead}${toc}${b}`;
 }
@@ -316,7 +317,7 @@ function homePage(){
  const bd=SEAS.map(s=>{const l=G.npcs.filter(n=>n.bday[0]===s).sort((a,b)=>a.bday[1]-b.bday[1]);return `<div><h3>${SEA[s]}</h3>${l.length?l.map(n=>`<div>${n.bday[1]}일 · <a href="#/npc/${encodeURIComponent(n.key)}">${esc(n.ko)}</a></div>`).join(''):'<div class="empty">없음</div>'}</div>`}).join('');
  const cards=NPCS.map(n=>`<a class="card" href="#/npc/${encodeURIComponent(n.key)}"><div class="pslot">${avHTML(n.key,'portrait','dc')}</div><div class="nm">${esc(n.ko)}<small>${SEA[n.bday[0]]} ${n.bday[1]}일</small></div></a>`).join('');
  return `<h1>SDS 주민 위키 <span class="tag">비공식</span></h1>
- <p>Seven Deadly Sins(SDS) 모드에 나오는 주민 <b>${G.npcs.length}명</b>의 선물·영화·간식 선호도, 이벤트, 스케줄을 정리한 문서예요. 왼쪽 목록이나 위쪽 검색에서 원하는 주민을 찾아보세요.</p>
+ <p>Seven Deadly Sins(SDS) 모드에 나오는 주민들의 선물·영화·간식 선호도, 이벤트, 스케줄을 정리한 문서입니다. 왼쪽 목록이나 위쪽 검색에서 원하는 주민을 찾을 수 있습니다.</p>
  <h2>주민 목록</h2><div class="grid">${cards}</div>
  <h2>계절별 생일</h2><div class="bd">${bd}</div>
  <h2>둘러보기</h2><ul><li><a href="#/items">SDS 아이템 목록</a> — 아이템 코드와 선호하는 주민</li><li><a href="#/fish">SDS 낚시</a> — 물고기별 장소·시간·계절·날씨</li><li><a href="#/prefs">공통 선호도</a> — 개인 선호가 없을 때 적용되는 선물 반응</li></ul>`;
