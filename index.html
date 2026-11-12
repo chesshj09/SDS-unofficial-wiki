@@ -145,7 +145,6 @@ dialog .ft{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
  <button class="btn" id="mb" aria-label="메뉴">☰</button>
  <a class="brand" href="#/"><i>✦</i> <span>SDS 위키 (비공식)</span></a>
  <div class="search"><input type="search" id="sq" placeholder="주민·아이템 검색" aria-label="검색" autocomplete="off"><div class="sr" id="sr"></div></div>
- <button class="btn" id="etog">✎ 편집</button>
 </header>
 <div class="ebar" id="ebar"></div>
 <div class="layout">
@@ -437,7 +436,7 @@ function draw(keepScroll){
  m.innerHTML=st.r[0]==='npc'?npcPage(NPC[st.r[1]]):st.r[0]==='items'?itemsPage():st.r[0]==='fish'?fishPage():st.r[0]==='prefs'?prefsPage():st.r[0]==='quests'?questsPage():st.r[0]==='recipes'?recipesPage():homePage();
  const n=st.r[0]==='npc'?NPC[st.r[1]]:null;
  document.title=(n?n.ko+' - ':st.r[0]==='items'?'SDS 아이템 - ':st.r[0]==='fish'?'SDS 낚시 - ':st.r[0]==='prefs'?'공통 선호도 - ':st.r[0]==='quests'?'퀘스트·특별 주문 - ':st.r[0]==='recipes'?'요리 레시피 - ':'')+'SDS 위키 (비공식)';
- $('etog').textContent=st.edit?'✎ 편집 종료':'✎ 편집';
+ 
  ebar();
 }
 window.addEventListener('hashchange',()=>{st.gi=0;$('side').classList.remove('open');draw();scrollTo(0,0)});
@@ -461,7 +460,7 @@ function ebar(){
  const n=nChanges();
  b.innerHTML=`<b>편집 모드</b><span>${n?`저장 안 한 변경 ${n}건 (이 브라우저에 임시 저장됨)`:'변경 없음'}</span><span class="sp"></span><button class="btn pri" id="b-gh"${n?'':' disabled'}>GitHub에 저장</button><button class="btn" id="b-exp">내보내기</button><button class="btn" id="b-imp">가져오기</button><button class="btn" id="b-set">설정</button>`;
 }
-$('etog').onclick=()=>{st.edit=!st.edit;draw()};
+ st.edit=false;
 $('mb').onclick=()=>$('side').classList.toggle('open');
 
 let upKind='',upKey='';
